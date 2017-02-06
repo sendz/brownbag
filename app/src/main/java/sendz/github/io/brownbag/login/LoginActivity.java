@@ -1,8 +1,6 @@
 package sendz.github.io.brownbag.login;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -11,17 +9,20 @@ import android.widget.TextView;
 
 import sendz.github.io.brownbag.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private AppCompatEditText inputUsername;
     private AppCompatEditText inputPassword;
     private AppCompatButton buttonLogin;
     private TextView textUsername;
 
+    private LoginPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        presenter = new LoginPresenter(this);
         initView();
         initLogin();
     }
@@ -37,18 +38,14 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = String.format(getString(R.string.format_login_with), inputUsername.getText().toString(), inputPassword.getText().toString());
-                doLogin(message);
+                presenter.doLogin(new LoginModel(inputUsername.getText().toString(), inputPassword.getText().toString()));
             }
         });
     }
 
-    private void doLogin(String message) {
-        showDialog(message);
-    }
-
-    private void showDialog(String message) {
-        textUsername.setText(message);
+    @Override
+    public void showDialog(LoginModel model) {
+        textUsername.setText(String.format(getString(R.string.format_login_with), model.username, model.password));
         textUsername.setVisibility(View.VISIBLE);
     }
 }
