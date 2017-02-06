@@ -1,28 +1,54 @@
 package sendz.github.io.brownbag.login;
 
-import android.databinding.DataBindingUtil;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+import android.widget.TextView;
 
 import sendz.github.io.brownbag.R;
-import sendz.github.io.brownbag.databinding.ActivityLoginBinding;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity {
 
-    private LoginViewModel viewModel;
+    private AppCompatEditText inputUsername;
+    private AppCompatEditText inputPassword;
+    private AppCompatButton buttonLogin;
+    private TextView textUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new LoginViewModel();
-        LoginPresenter presenter = new LoginPresenter(this, viewModel);
-        ActivityLoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        loginBinding.setPresenter(presenter);
-        loginBinding.setViewModel(viewModel);
+        setContentView(R.layout.activity_login);
+        initView();
+        initLogin();
     }
 
-    @Override
-    public void showDialog(LoginModel model) {
-        viewModel.setMessage(String.format(getString(R.string.format_login_with), model.username, model.password));
+    private void initView() {
+        inputUsername = (AppCompatEditText) findViewById(R.id.username);
+        inputPassword = (AppCompatEditText) findViewById(R.id.password);
+        buttonLogin = (AppCompatButton) findViewById(R.id.login);
+        textUsername = (TextView) findViewById(R.id.text_username);
+    }
+
+    private void initLogin() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = String.format(getString(R.string.format_login_with), inputUsername.getText().toString(), inputPassword.getText().toString());
+                doLogin(message);
+            }
+        });
+    }
+
+    private void doLogin(String message) {
+        showDialog(message);
+    }
+
+    private void showDialog(String message) {
+        textUsername.setText(message);
+        textUsername.setVisibility(View.VISIBLE);
     }
 }
