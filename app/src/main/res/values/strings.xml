@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BrownBag</string>
+    <string name="string_username">Username</string>
+    <string name="string_password">Password</string>
+    <string name="string_login">Log In</string>
+    <string name="format_login_with" formatted="false">Log In with %s and password %s</string>
+</resources>
