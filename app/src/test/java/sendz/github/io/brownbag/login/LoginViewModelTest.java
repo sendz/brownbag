@@ -54,6 +54,18 @@ public class LoginViewModelTest {
     }
 
     @Test
+    public void testShouldDisableButtonIfPasswordIsEmpty() throws Exception {
+        viewModel.setUsername("Username");
+        assertThat(viewModel.isLoginButtonEnable(), is(false));
+    }
+
+    @Test
+    public void testShouldDisableButtonIfUsernameIsEmpty() throws Exception {
+        viewModel.setPassword("Password");
+        assertThat(viewModel.isLoginButtonEnable(), is(false));
+    }
+
+    @Test
     public void testShouldEnableLoginButtonIfUsernameAndPasswordIsExist() throws Exception {
         viewModel.setUsername("Username");
         viewModel.setPassword("Passwowrd");
