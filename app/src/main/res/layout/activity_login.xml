@@ -39,6 +39,7 @@
             android:onClick="@{v->presenter.doLogin()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="@{viewModel.loginButtonEnable}"
             android:text="@string/string_login" />
 
         <TextView

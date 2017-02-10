@@ -47,4 +47,16 @@ public class LoginViewModelTest {
         viewModel.setMessage("Hi");
         assertThat(viewModel.getVisibility(), is(View.VISIBLE));
     }
+
+    @Test
+    public void testShouldDisableButtonIfUsernameAndPasswordIsNull() throws Exception {
+        assertThat(viewModel.isLoginButtonEnable(), is(false));
+    }
+
+    @Test
+    public void testShouldEnableLoginButtonIfUsernameAndPasswordIsExist() throws Exception {
+        viewModel.setUsername("Username");
+        viewModel.setPassword("Passwowrd");
+        assertThat(viewModel.isLoginButtonEnable(), is(true));
+    }
 }

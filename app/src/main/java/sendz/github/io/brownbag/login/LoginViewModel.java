@@ -14,6 +14,7 @@ public class LoginViewModel extends BaseObservable {
     private String username;
     private String password;
     private String message;
+    private boolean isLoginButtonEnable;
 
     @Bindable
     public String getUsername() {
@@ -23,6 +24,7 @@ public class LoginViewModel extends BaseObservable {
     public void setUsername(String username) {
         this.username = username;
         notifyPropertyChanged(BR.username);
+        notifyPropertyChanged(BR.loginButtonEnable);
     }
 
     @Bindable
@@ -33,6 +35,7 @@ public class LoginViewModel extends BaseObservable {
     public void setPassword(String password) {
         this.password = password;
         notifyPropertyChanged(BR.password);
+        notifyPropertyChanged(BR.loginButtonEnable);
     }
 
     @Bindable
@@ -50,5 +53,10 @@ public class LoginViewModel extends BaseObservable {
     public int getVisibility() {
         if (this.message != null) return View.VISIBLE;
         return View.GONE;
+    }
+
+    @Bindable
+    public boolean isLoginButtonEnable() {
+        return (this.username != null && this.password != null);
     }
 }
